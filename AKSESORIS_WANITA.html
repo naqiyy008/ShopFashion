@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container,
+        .catalog {
+            flex: 1 0 auto;
+        }
+
+        footer {
+            flex-shrink: 0;
+            background: #0a0a0a;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Default */
+        .modal-content {
+            background-color: white;
+            color: black;
+            transition: 0.3s ease;
+        }
+
+        /* Jika tema gelap aktif di body */
+        body.dark-theme .modal-content {
+            background-color: #111;
+            color: #0ff;
+            border: 1px solid #0ff;
+        }
+
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .d-inline-block img {
+            transition: transform 0.3s ease;
+        }
+
+        .d-inline-block img:hover {
+            transform: scale(1.1);
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1602810316495-8420e29c1e09') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+        }
+
+        .catalog {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .product h3 {
+            margin: 0.5rem 0 0.25rem;
+        }
+
+        .product p {
+            margin: 0;
+            color: navy;
+            font-weight: bold;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .options label,
+        .options select {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .btn-actions button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: navy;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        footer {
+            width: 100vw;
+            /* ubah dari 100% ke viewport width */
+            margin-left: 0;
+            margin-right: 0;
+            padding: 1.5rem 0;
+            background: #0a0a0a;
+            color: white;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+
+        /* Default (tema terang) */
+        .modal-content {
+            background-color: white;
+            color: #111;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Tema gelap */
+        body.dark-theme .modal-content {
+            background-color: #111;
+            color: #0ff;
+            /* Teks jadi neon biru muda */
+            border: 1px solid #0ff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Judul modal neon lembut */
+        .modal-content h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: inherit;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.4);
+            /* NEON lembut */
+        }
+
+        /* Isi wishlist + tombol */
+        .neon-glow-card {
+            background-color: transparent;
+            border: 1px solid currentColor;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 10px;
+            margin: 10px auto;
+            text-align: center;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        /* Tombol "Hapus" */
+        .neon-glow-card button {
+            background: transparent;
+            color: inherit;
+            border: 1px solid currentColor;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .neon-glow-card button:hover {
+            background-color: currentColor;
+            color: black;
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .option-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+        }
+
+        .option-group .option-btn {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .option-group .option-btn.active {
+            background-color: navy;
+            color: white;
+            border-color: navy;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .banner-img {
+                height: 200px;
+            }
+        }
+
+
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .catalog {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .product {
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            background: white;
+        }
+
+        .product:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product h3,
+        .product p {
+            margin: 10px;
+        }
+
+        body.light-theme .product p {
+            color: navy;
+        }
+
+        body.dark-theme .product p {
+            color: #0ff;
+        }
+
+
+        .product-details {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 10px;
+            font-size: 14px;
+            transition: bottom 0.3s ease;
+        }
+
+        .product:hover .product-details {
+            bottom: 0;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem 1rem 1rem;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .modal-content .image-wrapper {
+            width: 100%;
+            max-height: 300px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content .image-wrapper img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        @media (max-width: 576px) {
+            .modal-content {
+                padding: 1rem;
+            }
+
+            .modal-content .image-wrapper {
+                max-height: 200px;
+            }
+        }
+
+        .category-card {
+            background-color: rgba(0, 0, 0, 0.3);
+            /* semi-transparan */
+            border-radius: 10px;
+            color: white;
+            display: inline-block;
+            width: 150px;
+            transition: 0.3s;
+        }
+
+        .category-card:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        .image-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .neon-glow {
+            background-color: #111;
+            color: #fff;
+            box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+            border: 2px solid #0ff;
+            text-align: center;
+        }
+
+        .neon-glow-card {
+            background-color: transparent;
+            padding: 12px;
+            border-radius: 15px;
+            margin: 10px auto;
+            box-shadow: 0 0 15px #0ff, 0 0 30px #0ff;
+            /* Efek neon */
+            border: 2px solid #0ff;
+            transition: transform 0.3s ease;
+        }
+
+        .neon-glow-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+        }
+
+        .neon-glow-card button {
+            background: transparent;
+            color: #0ff;
+            border: 1px solid #0ff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .neon-glow-card button:hover {
+            background-color: #0ff;
+            color: black;
+        }
+
+
+        @keyframes flash-glow {
+            0% {
+                box-shadow: 0 0 0px transparent;
+            }
+
+            25% {
+                box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+            }
+
+            75% {
+                box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+            }
+
+            100% {
+                box-shadow: 0 0 0px transparent;
+            }
+        }
+
+        .neon-badge {
+            animation: flash-glow 1.2s ease-out;
+        }
+
+        #wishlist-count,
+        #cart-count {
+            background-color: #dc3545 !important;
+            color: white;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 50px;
+            transition: box-shadow 0.3s ease;
+            z-index: 9999;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Default nav-link (terang) */
+        .nav-link {
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        /* Neon glow in dark mode */
+        body.dark-theme .nav-link {
+            color: #0ff !important;
+            text-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Active tab efek */
+        body.dark-theme .nav-link.active {
+            color: #fff !important;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .product h3,
+        .product p {
+            color: inherit;
+        }
+
+        body.dark-theme .product h3 {
+            color: #0ff;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        body.dark-theme .product p {
+            color: #0ff;
+        }
+
+        /* Tombol filter kategori (neon) */
+        .category-card button {
+            font-weight: bold;
+            border: 2px solid transparent;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        /* Neon saat dark mode aktif */
+        body.dark-theme .category-card button {
+            color: #0ff;
+            border-color: #0ff;
+            text-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Hover neon */
+        body.dark-theme .category-card button:hover {
+            background-color: #0ff;
+            color: black;
+            box-shadow: 0 0 15px #0ff, 0 0 25px #0ff;
+        }
+
+        /* Tombol utama neon (misal checkout, beli, lanjut pembayaran) */
+        .btn-neon {
+            background-color: transparent;
+            color: #0ff;
+            font-weight: bold;
+            border: 2px solid #0ff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: block;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* Hover effect */
+        .btn-neon:hover {
+            background-color: #0ff;
+            color: black;
+            box-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
+        }
+
+        /* tema terang neon */
+        body.light-theme .btn-neon {
+            color: #0ff;
+            border: 2px solid #0ff;
+            box-shadow: 0 0 10px #0ff;
+        }
+
+        body.light-theme .btn-neon:hover {
+            background-color: #0ff;
+            color: black;
+            box-shadow: 0 0 20px #0ff;
+        }
+
+        body.light-theme .product h3 {
+            color: #0ff;
+            text-shadow: 0 0 4px rgba(0, 255, 255, 0.3);
+        }
+
+        body.light-theme .highlight-title {
+            color: #0ff;
+            border: 1px solid #0ff;
+            text-shadow: 0 0 5px #0ff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        /* === Default Neon Link Style (Light Theme) === */
+        a {
+            color: #0ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        a:hover {
+            color: #00e5e5;
+            text-shadow: 0 0 6px #0ff;
+        }
+
+        /* === Neon Glow Saat Tema Gelap === */
+        body.dark-theme a {
+            color: #0ff;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+        }
+
+        body.dark-theme a:hover {
+            color: #fff;
+            text-shadow: 0 0 12px #0ff, 0 0 20px #0ff;
+        }
+
+        body.light-theme .neon-glow {
+            background-color: #fff;
+            color: #111;
+            box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+            border: 2px solid #0ff;
+        }
+
+        #checkout-form input,
+        #checkout-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #0ff;
+            border-radius: 8px;
+            background: #000;
+            color: #0ff;
+        }
+
+        #checkout-form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #0ff;
+        }
+
+        #checkout-form button[type="submit"] {
+            background-color: transparent;
+            color: #0ff;
+            font-weight: bold;
+            border: 2px solid #0ff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+            transition: 0.3s ease;
+        }
+
+        #checkout-form button[type="submit"]:hover {
+            background-color: #0ff;
+            color: black;
+        }
+
+        @keyframes fadeInPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .show-popup .modal-content {
+            animation: fadeInPop 0.3s ease forwards;
+        }
+
+        .loading {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .loading-logo {
+            width: 80px;
+            animation: pulse 1.5s;
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #333;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+
+<body onload="mulaiLoading()">
+    <div class="loading" id="loading">
+        <img src="14635233.png" alt="Loading Logo" class="loading-logo">
+        <div class="loading-text">Memuat halaman Komentar...</div>
+    </div>
+    <div id="notif-bar" class="notif-bar" style="display: none;"></div>
+    <nav id="navbar" class="navbar navbar-expand-lg border-bottom mb-3">
+        <div class="container-fluid d-flex align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <a class="navbar-brand d-flex align-items-center gap-2 mb-0" href="#">
+                    <span>Arlynna Studio</span>
+                </a>
+                <button id="toggleTheme" class="btn btn-sm btn-outline-secondary" title="Ganti Tema">🌙</button>
+            </div>
+            <div class="ms-auto d-flex gap-4 align-items-center">
+                <a href="#" class="btn btn-outline-danger position-relative" onclick="showWishlistModal()">
+                    ❤️<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        id="wishlist-count">0</span>
+                </a>
+
+                </a>
+                <a href="#" class="btn btn-outline-primary position-relative" onclick="showCartModal()">
+                    🛒<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        id="cart-count">0</span>
+                </a>
+
+                </a>
+            </div>
+
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Dipindahkan ke bawah sini -->
+    <div class="container mb-4">
+        <ul class="nav nav-underline justify-content-center">
+            <li class="nav-item"><a class="nav-link active" href="LOGIN.html">LOGIN</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="HOME.html">HOME</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="BAJU_LAKI-LAKI.html">BAJU LAKI-LAKI</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="CELANA_LAKI-LAKI.html">CELANA LAKI-LAKI</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="BAJU_WANITA.html">BAJU WANITA</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="ROK_DAN_CELANA_WANITA.html">ROK DAN CELANA
+                    WANITA</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="AKSESORIS_WANITA.html">AKSESORIS WANITA</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="pemesanan.html">DAFTAR PEMESANAN</a></li>
+        </ul>
+    </div>
+
+    <section class="container px-0 mb-4">
+        <div class="rounded-3 overflow-hidden">
+            <img src="poster.jpg" class="d-block w-100 banner-img" alt="Banner" />
+        </div>
+    </section>
+    <br>
+    <hr class="my-4">
+    <section class="container mb-4">
+        <div class="row text-center">
+            <div class="col-md-4 mb-3">
+                <div class="p-3 border rounded shadow-sm">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="truck.png" alt="Pengiriman" width="40">
+                        <h5 class="fw-bold mb-0">Pengiriman Cepat</h5>
+                    </div>
+                    <p class="mt-2">Pesanan dikirim dalam 1x24 jam ke seluruh Indonesia.</p>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="p-3 border rounded shadow-sm">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="return-of-investment.png" alt="Pengiriman" width="40">
+                        <h5 class="fw-bold mb-0"> Retur Mudah</h5>
+                    </div>
+                    <p class="mt-2">Garansi tukar barang jika ukuran tidak sesuai.</p>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="p-3 border rounded shadow-sm">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="cash-on-delivery.png" alt="Pengiriman" width="40">
+                        <h5 class="fw-bold mb-0">COD Tersedia</h5>
+                    </div>
+                    <p class="mt-2">Bayar di tempat untuk kenyamanan dan keamanan.</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr class="my-4">
+    </section>
+    <div class="container mb-4 text-center">
+        <div class="category-card d-inline-block mx-2 text-center">
+            <img src="wrist-watch.png" alt="Kaos" width="50" class="mb-1">
+            <button class="btn btn-outline-dark d-block w-100" onclick="filterProducts('jam-tangan')">Jam Tangan </button>
+        </div>
+        <div class="category-card d-inline-block mx-2 text-center">
+            <img src="gift.png" alt="Sweater" width="50" class="mb-1">
+            <button class="btn btn-outline-dark d-block w-100" onclick="filterProducts('perhiasan')">Perhiasan</button>
+        </div>
+        <div class="category-card d-inline-block mx-2 text-center">
+            <img src="cap.png" alt="Jubah" width="50" class="mb-1">
+            <button class="btn btn-outline-dark d-block w-100" onclick="filterProducts('topi')">Topi</button>
+        </div>
+        <div class="category-card d-inline-block mx-2 text-center">
+            <img src="all-skins.png" alt="Semua Produk" width="50" class="mb-1">
+            <button class="btn btn-outline-dark d-block w-100" onclick="filterProducts('all')">Semua Produk</button>
+        </div>
+        <br>
+        <br>
+        <hr class="my-4">
+
+
+        <!-- Katalog Produk -->
+
+        <section class="catalog perhiasan">
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Elegan', 'Rp 120.000', ['Hitam','Silver'], ['Free Size'], 'wanita/jamtangan (1).jpg')">
+                <img src="wanita/jamtangan (1).jpg" alt="Jam Tangan Elegan">
+                <h3>Jam Tangan Elegan</h3>
+                <p>Rp 120.000</p>
+                <div class="product-details">
+                    Warna: Hitam, Silver<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="perhiasan"
+                onclick="showModal('Kalung Mutiara Manis', 'Rp 95.000', ['Putih','Gold'], ['Free Size'], 'wanita/perhiasan (1).jpg')">
+                <img src="wanita/perhiasan (1).jpg" alt="Kalung Mutiara Manis">
+                <h3>Kalung Mutiara Manis</h3>
+                <p>Rp 95.000</p>
+                <div class="product-details">
+                    Warna: Putih, Gold<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Ruffle Wanita', 'Rp 60.000', ['Cream','Pink','Abu'], ['Free Size'], 'wanita/topiwanita (1).jpg')">
+                <img src="wanita/topiwanita (1).jpg" alt="Topi Ruffle Wanita">
+                <h3>Topi Ruffle Wanita</h3>
+                <p>Rp 60.000</p>
+                <div class="product-details">
+                    Warna: Cream, Pink, Abu<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Fashionable', 'Rp 110.000', ['Rose Gold','Silver'], ['Free Size'], 'image/jamtangan (1).jpg')">
+                <img src="image/jamtangan (1).jpg" alt="Jam Tangan Fashionable">
+                <h3>Jam Tangan Fashionable</h3>
+                <p>Rp 110.000</p>
+                <div class="product-details">
+                    Warna: Rose Gold, Silver<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Simpel Stylish', 'Rp 55.000', ['Navy','Abu','Coklat'], ['Free Size'], 'image/topi (1).jpg')">
+                <img src="image/topi (1).jpg" alt="Topi Simpel Stylish">
+                <h3>Topi Simpel Stylish</h3>
+                <p>Rp 55.000</p>
+                <div class="product-details">
+                    Warna: Navy, Abu, Coklat<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Rose Classic', 'Rp 125.000', ['Rose Gold'], ['Free Size'], 'wanita/jamtangan (2).jpg')">
+                <img src="wanita/jamtangan (2).jpg" alt="Jam Tangan Rose Classic">
+                <h3>Jam Tangan Rose Classic</h3>
+                <p>Rp 125.000</p>
+                <div class="product-details">
+                    Warna: Rose Gold<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Kulit Elegan', 'Rp 130.000', ['Coklat','Hitam'], ['Free Size'], 'wanita/jamtangan (3).jpg')">
+                <img src="wanita/jamtangan (3).jpg" alt="Jam Tangan Kulit Elegan">
+                <h3>Jam Tangan Kulit Elegan</h3>
+                <p>Rp 130.000</p>
+                <div class="product-details">
+                    Warna: Coklat, Hitam<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Putih Glossy', 'Rp 115.000', ['Putih'], ['Free Size'], 'wanita/jamtangan (4).jpg')">
+                <img src="wanita/jamtangan (4).jpg" alt="Jam Tangan Putih Glossy">
+                <h3>Jam Tangan Putih Glossy</h3>
+                <p>Rp 115.000</p>
+                <div class="product-details">
+                    Warna: Putih<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <!-- Perhiasan 2–6 -->
+            <div class="product" data-category="perhiasan"
+                onclick="showModal('Gelang Kristal Elegan', 'Rp 88.000', ['Silver','Gold'], ['Free Size'], 'wanita/perhiasan (2).jpg')">
+                <img src="wanita/perhiasan (2).jpg" alt="Gelang Kristal Elegan">
+                <h3>Gelang Kristal Elegan</h3>
+                <p>Rp 88.000</p>
+                <div class="product-details">
+                    Warna: Silver, Gold<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="perhiasan"
+                onclick="showModal('Anting Manik Bunga', 'Rp 78.000', ['Pink','Putih'], ['Free Size'], 'wanita/perhiasan (3).jpg')">
+                <img src="wanita/perhiasan (3).jpg" alt="Anting Manik Bunga">
+                <h3>Anting Manik Bunga</h3>
+                <p>Rp 78.000</p>
+                <div class="product-details">
+                    Warna: Pink, Putih<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="perhiasan"
+                onclick="showModal('Cincin Minimalis Emas', 'Rp 115.000', ['Gold'], ['Free Size'], 'wanita/perhiasan (4).jpg')">
+                <img src="wanita/perhiasan (4).jpg" alt="Cincin Minimalis Emas">
+                <h3>Cincin Minimalis Emas</h3>
+                <p>Rp 115.000</p>
+                <div class="product-details">
+                    Warna: Gold<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="perhiasan"
+                onclick="showModal('Set Perhiasan Mewah', 'Rp 180.000', ['Gold','Silver'], ['Free Size'], 'wanita/perhiasan (5).jpg')">
+                <img src="wanita/perhiasan (5).jpg" alt="Set Perhiasan Mewah">
+                <h3>Set Perhiasan Mewah</h3>
+                <p>Rp 180.000</p>
+                <div class="product-details">
+                    Warna: Gold, Silver<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="perhiasan"
+                onclick="showModal('Kalung Liontin Cantik', 'Rp 105.000', ['Rose Gold'], ['Free Size'], 'wanita/perhiasan (6).jpg')">
+                <img src="wanita/perhiasan (6).jpg" alt="Kalung Liontin Cantik">
+                <h3>Kalung Liontin Cantik</h3>
+                <p>Rp 105.000</p>
+                <div class="product-details">
+                    Warna: Rose Gold<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <!-- Topiwanita 2–6 -->
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Bucket Lace', 'Rp 62.000', ['Putih','Pink'], ['Free Size'], 'wanita/topiwanita (2).jpg')">
+                <img src="wanita/topiwanita (2).jpg" alt="Topi Bucket Lace">
+                <h3>Topi Bucket Lace</h3>
+                <p>Rp 62.000</p>
+                <div class="product-details">
+                    Warna: Putih, Pink<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Sunhat Pantai', 'Rp 65.000', ['Cream','Coklat'], ['Free Size'], 'wanita/topiwanita (3).jpg')">
+                <img src="wanita/topiwanita (3).jpg" alt="Topi Sunhat Pantai">
+                <h3>Topi Sunhat Pantai</h3>
+                <p>Rp 65.000</p>
+                <div class="product-details">
+                    Warna: Cream, Coklat<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <!-- Image/jamtangan 2–6 -->
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Rantai Wanita', 'Rp 118.000', ['Gold','Silver'], ['Free Size'], 'image/jamtangan (2).jpg')">
+                <img src="image/jamtangan (2).jpg" alt="Jam Tangan Rantai Wanita">
+                <h3>Jam Tangan Rantai Wanita</h3>
+                <p>Rp 118.000</p>
+                <div class="product-details">
+                    Warna: Gold, Silver<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <!-- Image/topi 2–5 -->
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Denim Korea', 'Rp 59.000', ['Biru','Abu'], ['Free Size'], 'image/topi (2).jpg')">
+                <img src="image/topi (2).jpg" alt="Topi Denim Korea">
+                <h3>Topi Denim Korea</h3>
+                <p>Rp 59.000</p>
+                <div class="product-details">
+                    Warna: Biru, Abu<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Fedora Klasik', 'Rp 70.000', ['Hitam','Coklat'], ['Free Size'], 'wanita/topiwanita (4).jpg')">
+                <img src="wanita/topiwanita (4).jpg" alt="Topi Fedora Klasik">
+                <h3>Topi Fedora Klasik</h3>
+                <p>Rp 70.000</p>
+                <div class="product-details">
+                    Warna: Hitam, Coklat<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Rajut Manis', 'Rp 64.000', ['Cream','Pink'], ['Free Size'], 'wanita/topiwanita (5).jpg')">
+                <img src="wanita/topiwanita (5).jpg" alt="Topi Rajut Manis">
+                <h3>Topi Rajut Manis</h3>
+                <p>Rp 64.000</p>
+                <div class="product-details">
+                    Warna: Cream, Pink<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Baret Cantik', 'Rp 68.000', ['Merah','Hitam'], ['Free Size'], 'wanita/topiwanita (6).jpg')">
+                <img src="wanita/topiwanita (6).jpg" alt="Topi Baret Cantik">
+                <h3>Topi Baret Cantik</h3>
+                <p>Rp 68.000</p>
+                <div class="product-details">
+                    Warna: Merah, Hitam<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Minimalis Gold', 'Rp 140.000', ['Gold'], ['Free Size'], 'image/jamtangan (3).jpg')">
+                <img src="image/jamtangan (3).jpg" alt="Jam Tangan Minimalis Gold">
+                <h3>Jam Tangan Minimalis Gold</h3>
+                <p>Rp 140.000</p>
+                <div class="product-details">
+                    Warna: Gold<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Gelang Kombinasi', 'Rp 135.000', ['Rose Gold'], ['Free Size'], 'image/jamtangan (4).jpg')">
+                <img src="image/jamtangan (4).jpg" alt="Jam Tangan Gelang Kombinasi">
+                <h3>Jam Tangan Gelang Kombinasi</h3>
+                <p>Rp 135.000</p>
+                <div class="product-details">
+                    Warna: Rose Gold<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Quartz Modern', 'Rp 145.000', ['Silver'], ['Free Size'], 'image/jamtangan (5).jpg')">
+                <img src="image/jamtangan (5).jpg" alt="Jam Tangan Quartz Modern">
+                <h3>Jam Tangan Quartz Modern</h3>
+                <p>Rp 145.000</p>
+                <div class="product-details">
+                    Warna: Silver<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="jam-tangan"
+                onclick="showModal('Jam Tangan Strap Polos', 'Rp 122.000', ['Hitam'], ['Free Size'], 'image/jamtangan (6).jpg')">
+                <img src="image/jamtangan (6).jpg" alt="Jam Tangan Strap Polos">
+                <h3>Jam Tangan Strap Polos</h3>
+                <p>Rp 122.000</p>
+                <div class="product-details">
+                    Warna: Hitam<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Casual Streetwear', 'Rp 58.000', ['Hitam','Putih'], ['Free Size'], 'image/topi (3).jpg')">
+                <img src="image/topi (3).jpg" alt="Topi Casual Streetwear">
+                <h3>Topi Casual Streetwear</h3>
+                <p>Rp 58.000</p>
+                <div class="product-details">
+                    Warna: Hitam, Putih<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Sporty Mesh', 'Rp 60.000', ['Abu','Biru'], ['Free Size'], 'image/topi (4).jpg')">
+                <img src="image/topi (4).jpg" alt="Topi Sporty Mesh">
+                <h3>Topi Sporty Mesh</h3>
+                <p>Rp 60.000</p>
+                <div class="product-details">
+                    Warna: Abu, Biru<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+
+            <div class="product" data-category="topi"
+                onclick="showModal('Topi Floppy Modis', 'Rp 66.000', ['Coklat','Cream'], ['Free Size'], 'image/topi (5).jpg')">
+                <img src="image/topi (5).jpg" alt="Topi Floppy Modis">
+                <h3>Topi Floppy Modis</h3>
+                <p>Rp 66.000</p>
+                <div class="product-details">
+                    Warna: Coklat, Cream<br>
+                    Ukuran: Free Size
+                </div>
+            </div>
+        </section>
+
+
+        <div id="modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <div class="image-slider text-center mb-3"
+                    style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <button id="modal-left" onclick="prevProductImage()">←</button>
+                    <img id="modal-img" src="" alt="" style="max-width: 300px; max-height: 300px; border-radius: 8px;">
+                    <button id="modal-right" onclick="nextProductImage()">→</button>
+                </div>
+
+                <h2 id="modal-title"></h2>
+                <p id="modal-price" style="color: navy; font-weight: bold;"></p>
+                <div class="options">
+                    <label>Warna:</label>
+                    <div id="warna-options" class="option-group"></div>
+
+                    <label>Ukuran:</label>
+                    <div id="ukuran-options" class="option-group"></div>
+                </div>
+
+                <div class="btn-actions">
+                    <button onclick="addToCart()">Masukkan Keranjang</button>
+                    <button onclick="buyNow()">Beli Sekarang</button>
+                    <button onclick="addToWishlist()">❤️ Tambah Wishlist</button>
+                </div>
+
+            </div>
+        </div>
+        <div id="cart-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeCartModal()">&times;</span>
+                <h2>Keranjang Saya</h2>
+                <div id="cart-items"></div>
+                <button class="btn-neon" onclick="proceedToCheckout()">Lanjut ke Pembayaran</button>
+            </div>
+        </div>
+
+        <!-- pop up like keranjang dan beli -->
+        <div id="action-popup" class="modal" style="display: none;">
+            <div class="modal-content neon-glow text-center">
+                <span class="close-btn" onclick="closeActionPopup()">&times;</span>
+                <h4 id="popup-message">Produk berhasil ditambahkan!</h4>
+                <button class="btn btn-primary mt-3" onclick="proceedToCheckout()">🛍️ Beli Sekarang</button>
+            </div>
+        </div>
+
+        <div id="wishlist-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeWishlistModal()">&times;</span>
+                <h2>Wishlist Saya</h2>
+                <div id="wishlist-items"></div>
+            </div>
+        </div>
+
+        <div id="checkout-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeCheckoutModal()">&times;</span>
+                <h2>Checkout (COD)</h2>
+                <div id="checkout-summary"></div>
+                <form id="checkout-form" onsubmit="return confirmOrder(event)">
+                    <label>Nama:</label>
+                    <input type="text" id="nama" required><br>
+                    <label>Nomor HP:</label>
+                    <input type="text" id="nomor-hp" required><br>
+                    <label>Alamat Rumah:</label>
+                    <textarea id="alamat" required></textarea><br>
+                    <button type="submit">Konfirmasi Pembelian</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <!-- Tutup semua container di atas dulu -->
+    </div>
+
+    <div id="confirm-popup" class="modal" style="display: none;">
+        <div class="modal-content neon-glow text-center">
+            <h4 id="confirm-message">Yakin?</h4>
+            <div class="mt-3">
+                <button class="btn btn-neon" onclick="confirmPopupResolve(true)">Ya</button>
+                <button class="btn btn-neon" onclick="confirmPopupResolve(false)">Tidak</button>
+            </div>
+        </div>
+    </div>
+    <div id="notif-bar" style="display:none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+background: #0ff; color: black; padding: 10px 20px; border-radius: 10px; z-index: 9999;">
+    </div>
+
+
+    <!-- Lalu footer bebas di luar -->
+    <footer>
+        <p>📍 Jl. Fashion No. 123, Probolinggo</p>
+        <p>📱 Instagram: @arlynnastudio | WhatsApp: 0812-3456-7890</p>
+        <p class="mb-0">&copy; 2025 Arlynna Studio</p>
+    </footer>
+
+
+
+
+    <script>
+
+        function mulaiLoading() {
+            const loading = document.getElementById("loading");
+            loading.style.display = "flex";
+            setTimeout(() => {
+                loading.style.display = "none";
+                tampilkanKomentar();
+            }, 2000);
+        }
+
+        function showActionPopup(message) {
+            const popup = document.getElementById("action-popup");
+            const popupMsg = document.getElementById("popup-message");
+
+            popupMsg.textContent = message;
+            popup.classList.add("show-popup");
+            popup.style.display = "flex";
+
+            // Tutup otomatis setelah 2.5 detik
+            setTimeout(() => {
+                popup.classList.remove("show-popup");
+                popup.style.display = "none";
+            }, 2500);
+        }
+
+        let confirmResolve = null;
+        function confirmPopupResolve(result) {
+            document.getElementById("confirm-popup").style.display = "none";
+            if (confirmResolve) confirmResolve(result);
+        }
+
+        // Cart & Wishlist System
+        const cartCountElem = document.getElementById('cart-count');
+        const wishlist = [];
+
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCountElem.textContent = totalItems;
+        }
+
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+
+
+        let currentImageIndex = 0;
+        let currentImages = [];
+
+        function showModal(title, price, colors, sizes, images) {
+            const isSlider = Array.isArray(images); // cek apakah gambar array
+
+            // Set gambar awal
+            currentImageIndex = 0;
+            currentImages = isSlider ? images : [images];
+            document.getElementById('modal-img').src = currentImages[0];
+
+            // Tampilkan tombol slider hanya jika gambar array (slider aktif)
+            document.getElementById('modal-left').style.display = isSlider ? 'inline-block' : 'none';
+            document.getElementById('modal-right').style.display = isSlider ? 'inline-block' : 'none';
+
+            // Isi info produk
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-price').textContent = price;
+
+            const warnaContainer = document.getElementById('warna-options');
+            const ukuranContainer = document.getElementById('ukuran-options');
+
+            warnaContainer.innerHTML = '';
+            colors.forEach(color => {
+                const btn = document.createElement('button');
+                btn.textContent = color;
+                btn.className = 'option-btn';
+                btn.onclick = () => {
+                    document.querySelectorAll('#warna-options .option-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                };
+                warnaContainer.appendChild(btn);
+            });
+
+            ukuranContainer.innerHTML = '';
+            sizes.forEach(size => {
+                const btn = document.createElement('button');
+                btn.textContent = size;
+                btn.className = 'option-btn';
+                btn.onclick = () => {
+                    document.querySelectorAll('#ukuran-options .option-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                };
+                ukuranContainer.appendChild(btn);
+            });
+
+            // Tampilkan modal
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+
+        function nextProductImage() {
+            if (currentImages.length === 0) return;
+            currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+            document.getElementById('modal-img').src = currentImages[currentImageIndex];
+        }
+
+        function prevProductImage() {
+            if (currentImages.length === 0) return;
+            currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+            document.getElementById('modal-img').src = currentImages[currentImageIndex];
+        }
+
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function buyNow() {
+            const title = document.getElementById('modal-title').textContent;
+            const price = document.getElementById('modal-price').textContent;
+            const warnaBtn = document.querySelector('#warna-options .option-btn.active');
+            const ukuranBtn = document.querySelector('#ukuran-options .option-btn.active');
+
+            if (!warnaBtn || !ukuranBtn) {
+                showActionPopup('Silakan pilih warna dan ukuran terlebih dahulu.');
+                return;
+            }
+
+            const color = warnaBtn.textContent;
+            const size = ukuranBtn.textContent;
+            const qty = 1;
+
+            const summary = `
+        <ul>
+            <li>${title} (${color}, ${size}) x${qty} - ${price}</li>
+        </ul>
+        <p>Total: ${price}</p>`;
+            document.getElementById("checkout-summary").innerHTML = summary;
+
+            // Simpan 1 produk ke cart (sementara) agar checkout bisa proses
+            localStorage.setItem("single-buy", JSON.stringify([{ title, price, color, size, qty }]));
+
+            showConfirmPopup(`Yakin ingin membeli ${title}?`).then((confirmed) => {
+                if (confirmed) {
+                    closeModal();
+                    document.getElementById("checkout-modal").style.display = "flex";
+                }
+            });
+
+        }
+
+
+        function updateCheckoutTotal() {
+            const cart = getCart();
+            let total = 0;
+            cart.forEach(item => {
+                total += parseInt(item.price.replace(/[^\d]/g, '')) * item.qty;
+            });
+            document.getElementById("total-checkout").textContent = `Total: Rp ${total.toLocaleString()}`;
+        }
+
+        function checkoutCart() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                showActionPopup("Keranjang masih kosong!");
+                return;
+            }
+            const total = cart.reduce((sum, item) => sum + parseInt(item.price.replace(/[^\d]/g, '')) * item.qty, 0);
+            showActionPopup(`Checkout berhasil! Total belanja: Rp ${total.toLocaleString()}`);
+            localStorage.removeItem('cart');
+            updateCartCount();
+            updateCheckoutTotal();
+        }
+
+        function flashNeonBadge(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.add("neon-badge");
+            setTimeout(() => el.classList.remove("neon-badge"), 1200);
+        }
+
+        function addToCart() {
+            const title = document.getElementById('modal-title').textContent;
+            const price = document.getElementById('modal-price').textContent;
+            const warnaBtn = document.querySelector('#warna-options .option-btn.active');
+            const ukuranBtn = document.querySelector('#ukuran-options .option-btn.active');
+
+            if (!warnaBtn || !ukuranBtn) {
+                showActionPopup('Silakan pilih warna dan ukuran terlebih dahulu.');
+                return;
+            }
+
+            const color = warnaBtn.textContent;
+            const size = ukuranBtn.textContent;
+
+            let cart = getCart();
+            const existingIndex = cart.findIndex(item =>
+                item.title === title && item.color === color && item.size === size
+            );
+
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({ title, price, color, size, qty: 1 });
+            }
+
+            saveCart(cart);
+            flashNeonBadge("cart-count");
+            showActionPopup("✔️ Produk ditambahkan ke keranjang");
+        }
+
+        function addToWishlist() {
+            const title = document.getElementById('modal-title').textContent;
+            const price = document.getElementById('modal-price').textContent;
+
+            let wishlist = getWishlist();
+            const exists = wishlist.some(item => item.title === title);
+
+            if (exists) {
+                showActionPopup(`'${title}' sudah ada di wishlist.`);
+                return;
+            }
+
+            wishlist.push({ title, price });
+            saveWishlist(wishlist);
+            flashNeonBadge("wishlist-count");
+            showActionPopup(`'${title}' ditambahkan ke wishlist!`);
+        }
+
+
+        function showWishlist() {
+            const wishlist = getWishlist();
+            if (wishlist.length === 0) {
+                showActionPopup("Wishlist kosong.");
+                return;
+            }
+            let list = wishlist.map(item => `• ${item.title} - ${item.price}`).join('\n');
+            showActionPopup("Wishlist:\n" + list);
+        }
+
+        function showCart() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                showActionPopup("Keranjang kosong.");
+                return;
+            }
+            let list = cart.map(item =>
+                ` ${item.title} (${item.color}, ${item.size}) x${item.qty} - ${item.price}`
+            ).join('\n');
+            showActionPopup("❤️ Produk ditambahkan ke wishlist");
+        }
+
+
+        //menyimpan data keranjang dan wishlist ke localStorage
+        // === LocalStorage Cart & Wishlist ===
+
+        function getWishlist() {
+            const wishlist = localStorage.getItem('wishlist');
+            return wishlist ? JSON.parse(wishlist) : [];
+        }
+
+        function saveWishlist(wishlist) {
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
+        }
+
+        // === Update Navbar Count ===
+        function updateCartCount() {
+            const cart = getCart();
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        function updateWishlistCount() {
+            const wishlist = getWishlist();
+            document.getElementById('wishlist-count').textContent = wishlist.length;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            updateWishlistCount();
+        });
+
+        // === Hapus Item ===
+        async function removeFromCart(index) {
+            let cart = getCart();
+            if (index >= 0 && index < cart.length) {
+                const confirmed = await showConfirmPopup(`Hapus ${cart[index].title} dari keranjang?`);
+                if (confirmed) {
+                    cart.splice(index, 1);
+                    saveCart(cart);
+                }
+            }
+        }
+
+
+        async function removeFromWishlist(index) {
+            let wishlist = getWishlist();
+            if (index >= 0 && index < wishlist.length) {
+                const confirmed = await showConfirmPopup(`Hapus ${wishlist[index].title} dari wishlist?`);
+                if (confirmed) {
+                    wishlist.splice(index, 1);
+                    saveWishlist(wishlist);
+                }
+            }
+        }
+
+
+        // === Tampilkan Isi & Pilih untuk Dihapus ===
+        function showCartModal() {
+            const cart = getCart();
+            const container = document.getElementById("cart-items");
+            container.innerHTML = cart.length
+                ? ""
+                : `<p>Keranjang kosong.</p><a href="BAJU_LAKI-LAKI.html" class="btn btn-neon mt-3">🛒 Belanja Sekarang</a>`;
+
+            cart.forEach((item, i) => {
+                const div = document.createElement("div");
+                div.innerHTML = `${item.title} (${item.color}, ${item.size}) x${item.qty} - ${item.price} <button onclick="removeFromCart(${i}); showCartModal()">Hapus</button>`;
+                container.appendChild(div);
+            });
+
+            document.getElementById("cart-modal").style.display = "flex";
+        }
+
+        function closeCartModal() {
+            document.getElementById("cart-modal").style.display = "none";
+        }
+
+        function showWishlistModal() {
+            const wishlist = getWishlist();
+            const container = document.getElementById("wishlist-items");
+            container.innerHTML = wishlist.length ? "" : "<p>Wishlist kosong.</p>";
+
+            if (wishlist.length === 0) {
+                container.innerHTML += `<a href="BAJU_LAKI-LAKI.html" class="btn btn-neon mt-3">🛒 Belanja Sekarang</a>`;
+            }
+
+
+            wishlist.forEach((item, i) => {
+                const div = document.createElement("div");
+                div.className = "neon-glow-card"; // efek kartu glowing lembut
+                div.innerHTML = `${item.title} - ${item.price} <button onclick="removeFromWishlist(${i}); showWishlistModal()">Hapus</button>`;
+                container.appendChild(div);
+            });
+
+            document.getElementById("wishlist-modal").style.display = "flex";
+        }
+
+        function closeWishlistModal() {
+            document.getElementById("wishlist-modal").style.display = "none";
+        }
+
+        function proceedToCheckout() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                showActionPopup("Keranjang kosong!");
+                return;
+            }
+
+            let summary = "<ul>";
+            cart.forEach(item => {
+                summary += `<li>${item.title} (${item.color}, ${item.size}) x${item.qty} - ${item.price}</li>`;
+            });
+            summary += "</ul>";
+
+            const total = cart.reduce((sum, item) => sum + parseInt(item.price.replace(/[^\d]/g, "")) * item.qty, 0);
+            summary += `<p>Total: Rp ${total.toLocaleString()}</p>`;
+
+            document.getElementById("checkout-summary").innerHTML = summary;
+
+            closeCartModal();
+            document.getElementById("checkout-modal").style.display = "flex";
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById("checkout-modal").style.display = "none";
+        }
+
+        function confirmOrder(event) {
+            event.preventDefault();
+
+            const nama = document.getElementById("nama").value.trim();
+            const hp = document.getElementById("nomor-hp").value.trim();
+            const alamat = document.getElementById("alamat").value.trim();
+
+            if (!nama || !hp || !alamat) {
+                showActionPopup("Mohon lengkapi semua data.");
+                return false;
+            }
+
+            const isSingleBuy = localStorage.getItem("single-buy");
+            const items = isSingleBuy ? JSON.parse(isSingleBuy) : getCart();
+
+            for (const item of items) {
+                if (!item.color || !item.size) {
+                    showActionPopup("Ada produk yang belum dipilih warna atau ukuran.");
+                    return false;
+                }
+            }
+
+            // Buat objek pesanan
+            const order = {
+                id: Date.now(),
+                nama,
+                hp,
+                alamat,
+                items,
+                waktu: new Date().toLocaleString(),
+                status: "Belum Diterima"
+            };
+
+            // Simpan ke localStorage
+            const existing = JSON.parse(localStorage.getItem("pemesanan")) || [];
+            existing.push(order);
+            localStorage.setItem("pemesanan", JSON.stringify(existing));
+
+            // Hapus data tergantung dari sumbernya
+            if (isSingleBuy) {
+                localStorage.removeItem("single-buy");
+            } else {
+                localStorage.removeItem("cart");
+            }
+
+            updateCartCount();
+            closeCheckoutModal();
+
+            // Notifikasi berhasil (termasuk dari keranjang atau single buy)
+            const source = isSingleBuy ? "produk ini" : "keranjang kamu";
+            showActionPopup(`🎉 Pembelian dari ${source} berhasil atas nama ${nama}, alamat: ${alamat}`);
+
+            return false; // Tetap false agar form tidak reload
+        }
+
+
+
+        // Saat tombol tema diklik, ubah tema body
+        document.getElementById("toggleTheme").addEventListener("click", function () {
+            document.body.classList.toggle("dark-theme");
+
+            // Simpan preferensi tema
+            const isDark = document.body.classList.contains("dark-theme");
+            localStorage.setItem("preferred-theme", isDark ? "dark" : "light");
+        });
+
+        // === Filter Produk ===
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.catalog .product');
+            products.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+                if (category === 'all' || productCategory === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+    </script>
+
+
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
